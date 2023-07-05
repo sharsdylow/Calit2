@@ -1,5 +1,6 @@
 import React from 'react'
 import RealtimeSensorChart from '../components/RealtimeSensorChart';
+import DateTimeRangeField from '../components/DateTimeRangeFeild';
 
 function Sensor() {
     const groups = [1, 2, 3];
@@ -11,6 +12,8 @@ function Sensor() {
           <RealtimeSensorChart group={group} />
           </div>
         ))}
+        <h3>Data Logs</h3>
+        <DateTimeRangeField />
       </div>
     );
 }
