@@ -1,6 +1,7 @@
 import React from 'react'
 import RealtimeSensorChart from '../components/RealtimeSensorChart';
-import DateTimeRangeField from '../components/DateTimeRangeFeild';
+import DateTimeRangePicker from '../components/DateTimeRangePicker';
+import SensorSelector from '../components/SensorSelector';
 
 function Sensor() {
     const groups = [1, 2, 3];
@@ -13,7 +14,8 @@ function Sensor() {
           </div>
         ))}
         <h3>Data Logs</h3>
-        <DateTimeRangeField />
+        <DateTimeRangePicker />
+        <SensorSelector />
       </div>
     );
 }
