@@ -10,6 +10,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { Button } from '@mui/material';
 import { searchData } from '../lib/SearchData';
+import StatisticSensorChart from './StatisticSensorChart';
 
 export default function DataSearch() {
     const [start, setStart] = React.useState('');
@@ -32,10 +33,12 @@ export default function DataSearch() {
     const handleEnd = (event) => {
     setEnd(event.target.value);
     };
-    // TODO get data search result
+
+    const data = []
+    // const data = [{x: '2016-12-25', y: 20}, {x: '2016-12-26', y: 10}]
     const handleSearch = async (event) =>{
         event.preventDefault()
-        const data = await searchData(start, end, group, num)
+        data = await searchData(start, end, group, num)
     }
 
   return (
@@ -105,7 +108,7 @@ export default function DataSearch() {
             Search
         </Button>
       </FormControl>
-      
+      <StatisticSensorChart sensorData={data} />
     </div>
   );
 }
