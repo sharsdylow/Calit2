@@ -1,9 +1,11 @@
 version: '3.8'
 services:
-  web:
-    build: .
+  frontend:
+    build:
+        context: ./frontend
+        dockerfile: ./Dockerfile
     command: npm start
     volumes:
-      - .:/lab-app
+      - .:/lab-app/frontend
     ports:
       - "3000:3000"
