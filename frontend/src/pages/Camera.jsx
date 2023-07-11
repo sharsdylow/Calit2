@@ -1,21 +1,24 @@
-import React, { useEffect } from "react";
-import JSMpeg from "@cycjimmy/jsmpeg-player";
-
-const ffmpegIP = "localhost";
+import React from "react";
+import IPCamera from "../components/IPCamera";
 
 export default function Camera() {
-  useEffect(() => {
-    var videoUrl = `ws://${ffmpegIP}:6789/`;
-    var player = new JSMpeg.VideoElement("#video-canvas", videoUrl, {
-      autoplay: true,
-    });
-    console.log(player);
-  });
-
+  //TODO Get camera info from DB
+  const cameras = [
+    {
+    name: "Camara 1", 
+    url: "rtsp://admin:Calit2@192.168.10.102:554/h264Preview_01_main",
+    port: "6789"
+    },
+  ]
+  
   return (
     <div>
-      <h3>Camera 1</h3>
-      <div id="video-canvas" style={{ height: "480px", width: "640px" }}></div>
+      {cameras.map(camera => (
+        <div>
+        <h3>{camera.name}</h3>
+        <IPCamera camera={camera}/>
+        </div>
+      ))}
     </div>
   )
 }
