@@ -24,7 +24,7 @@ export default function IPCamera({camera: {name, url, port}}) {
   };
   return (
     <div>
-      <div id="video-canvas" style={{ height: "480px", width: "640px" }}></div>
+      <div id="video-canvas" style={{ height: "360px", width: "480px" }}></div>
     </div>
   )
 }
