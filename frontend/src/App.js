@@ -11,7 +11,7 @@ function App() {
       <div >
         <Navbar />
         <Switch>
-          <Route path="/home" component={Home} />
+          <Route exact path="/" component={Home} />
           <Route path="/sensor" component={Sensor} />
           <Route path="/camera" component={Camera} />
           <Route path="/setting" component={Setting} />
