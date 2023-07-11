@@ -2,6 +2,7 @@
   "name": "lab-app",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:8000",
   "dependencies": {
     "@canvasjs/charts": "^3.7.11",
     "@canvasjs/react-charts": "^1.0.0",
@@ -21,6 +22,7 @@
     "@testing-library/user-event": "^13.5.0",
     "@types/chart.js": "^2.9.37",
     "apexcharts": "^3.41.0",
+    "axios": "^1.4.0",
     "canvasjs": "^1.8.3",
     "chart.js": "^3.9.1",
     "chartjs-adapter-luxon": "^1.3.1",
