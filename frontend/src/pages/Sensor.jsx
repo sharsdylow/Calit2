@@ -1,7 +1,6 @@
 import React from 'react'
-import RealtimeSensorChart from '../components/RealtimeSensorChart';
-import DataSearch from '../components/DataSearch';
-import SensorSwitch from '../components/SensorSwitch';
+import DataSearch from '../components/sensors/SensorDataSearch';
+import SensorGroup from '../components/sensors/SensorGroup';
 
 function Sensor() {
     // TODO data source 
@@ -9,13 +8,7 @@ function Sensor() {
     return (
       <div>
         {groups.map(group => (
-          <div>
-          <h3>Group {group.id}</h3>
-          <div style={{display: 'flex'}}>
-          <RealtimeSensorChart group={group} />
-          <SensorSwitch group={group} />
-          </div>
-          </div>
+          <SensorGroup group={group} />
         ))}
         <h3>Data Logs</h3>
         <DataSearch />

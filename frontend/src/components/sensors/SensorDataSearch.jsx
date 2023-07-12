@@ -9,7 +9,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { Button } from '@mui/material';
-import { searchData } from '../lib/SearchData';
+import { searchData } from '../../lib/SearchData';
 import StatisticSensorChart from './StatisticSensorChart';
 
 export default function DataSearch() {

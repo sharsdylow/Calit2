@@ -6,7 +6,7 @@ import StreamingPlugin from 'chartjs-plugin-streaming';
 
 Chart.register(StreamingPlugin);
 
-const RealtimeSensorChart = ({group: {id, sensors}}) => {
+const RealtimeSensorChart = ({sensors}) => {
   const borderColors = ['rgb(255, 99, 132)', 'rgb(54, 162, 235)', 'rgb(60, 179, 113)']
   const dataSets = sensors.map((sensor,index) =>{
     return {
