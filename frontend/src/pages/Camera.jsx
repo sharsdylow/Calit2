@@ -6,7 +6,7 @@ export default function Camera() {
   const cameras = [
     {
     name: "Camara 1", 
-    url: "rtsp://admin:Calit2@192.168.10.105:554/h264Preview_01_main",
+    url: "rtsp://admin:Calit2@128.195.151.231:554/h264Preview_01_main",
     port: "6789"
     },
   ]
