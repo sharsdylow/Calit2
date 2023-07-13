@@ -3,24 +3,24 @@
 import {createSlice} from '@reduxjs/toolkit'
 
 const initialState = [
-    {id: '1', group: '1', online: true, visible: true},
-    {id: '2', group: '2', online: true, visible: true},
-    {id: '3', group: '3', online: true, visible: true},
-    {id: '4', group: '1', online: true, visible: true},
-    {id: '5', group: '2', online: true, visible: true},
-    {id: '6', group: '3', online: true, visible: true},
-    {id: '7', group: '1', online: true, visible: true},
-    {id: '8', group: '2', online: true, visible: true},
-    {id: '9', group: '3', online: true, visible: true},
+    {id: '1', group: '1', online: true, hidden: false},
+    {id: '2', group: '2', online: true, hidden: false},
+    {id: '3', group: '3', online: true, hidden: false},
+    {id: '4', group: '1', online: true, hidden: false},
+    {id: '5', group: '2', online: true, hidden: false},
+    {id: '6', group: '3', online: true, hidden: false},
+    {id: '7', group: '1', online: true, hidden: false},
+    {id: '8', group: '2', online: true, hidden: false},
+    {id: '9', group: '3', online: true, hidden: false},
 ]
 export const sensorsSlice = createSlice({
     name: 'Sensors',
     initialState,
     reducers: {
         setVisibility: (state, action) =>{
-            state.map(sensor => {
+            state.forEach(sensor => {
                 if(sensor.id==action.payload){
-                    sensor.visible=!sensor.visible
+                    sensor.hidden=!sensor.hidden
                 }
             })
         }
