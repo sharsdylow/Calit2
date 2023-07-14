@@ -18,7 +18,7 @@ const RealtimeSensorChart = ({group}) => {
       backgroundColor: borderColors.at(index),
       borderColor: borderColors.at(index),
       fill: false,
-      data: [],
+      data: [], //TODO get initial data from backend
       hidden: sensor.hidden
     }
   })
@@ -32,8 +32,11 @@ const RealtimeSensorChart = ({group}) => {
           x: {
             type: 'realtime',
             realtime: {
-              delay: 1000,
-              refresh: 1000,
+              duration: 10000,// data in the past 20000 ms will be displayed
+              refresh: 1000,    // onRefresh callback will be called every 1000 ms
+              delay: 1000,      // delay of 1000 ms, so upcoming values are known before plotting a line
+              pause: false,     // chart is not paused
+              frameRate: 30,    // data points are drawn 30 times every second
               onRefresh: chart => {
                 chart.data.datasets.forEach((dataset) => {
                   // var data = getLatestData(dataset.lable);

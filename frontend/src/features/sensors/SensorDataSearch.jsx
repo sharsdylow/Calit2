@@ -9,6 +9,8 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { Button } from '@mui/material';
+import Box from '@mui/material/Box'
+import Grid from '@mui/system/Unstable_Grid';
 import { searchData } from '../../lib/SearchData';
 import StatisticSensorChart from './StatisticSensorChart';
 
@@ -27,6 +29,7 @@ export default function DataSearch() {
     };
 
     const handleStart = (event) => {
+        console.log(event.target.value)
         setStart(event.target.value);
       };
     
@@ -72,32 +75,38 @@ export default function DataSearch() {
         </DemoContainer>
         </LocalizationProvider>
       {/* sensor selector */}
-      <div>
-      <FormControl sx={{ m: 2, minWidth: 150 }}>
-        <InputLabel id="demo-simple-select-helper-label">Group</InputLabel>
-        <Select
-          value={group}
-          label="Group"
-          onChange={handleGroupChange}
-        >
-          <MenuItem value={1}>1</MenuItem>
-          <MenuItem value={2}>2</MenuItem>
-          <MenuItem value={3}>3</MenuItem>
-        </Select>
-      </FormControl>
-      <FormControl sx={{ m: 2, minWidth: 150 }}>
-        <InputLabel id="demo-simple-select-helper-label">No.</InputLabel>
-        <Select
-          value={num}
-          label="No."
-          onChange={handleNumChange}
-        >
-          <MenuItem value={1}>1</MenuItem>
-          <MenuItem value={2}>2</MenuItem>
-          <MenuItem value={3}>3</MenuItem>
-        </Select>
-      </FormControl>
-      </div>
+      <Box sx={{ m: 2}}>
+        <Grid container spacing={2}>
+          <Grid xs={6}>
+            <FormControl sx={{width:1}}>
+              <InputLabel id="demo-simple-select-helper-label">Group</InputLabel>
+              <Select
+                value={group}
+                label="Group"
+                onChange={handleGroupChange}
+              >
+                <MenuItem value={1}>1</MenuItem>
+                <MenuItem value={2}>2</MenuItem>
+                <MenuItem value={3}>3</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid xs={6}>
+            <FormControl sx={{width:1}}>
+              <InputLabel id="demo-simple-select-helper-label">No.</InputLabel>
+              <Select
+                value={num}
+                label="No."
+                onChange={handleNumChange}
+              >
+                <MenuItem value={1}>1</MenuItem>
+                <MenuItem value={2}>2</MenuItem>
+                <MenuItem value={3}>3</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+        </Grid>
+      </Box>
       {/* search button */}
       <FormControl sx={{ m: 2 }}>
         <Button 
@@ -105,7 +114,7 @@ export default function DataSearch() {
         size='large' 
         onClick={handleSearch}
         >
-            Search
+        Search
         </Button>
       </FormControl>
       <StatisticSensorChart sensorData={data} />
