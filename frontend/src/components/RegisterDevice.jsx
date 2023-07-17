@@ -10,17 +10,21 @@ import Grid from '@mui/system/Unstable_Grid';
 import TextField from '@mui/material/TextField';
 import FormHelperText from '@mui/material/FormHelperText';
 import 'react-toastify/dist/ReactToastify.css';
+import { useDispatch, useSelector } from 'react-redux'
+import { register } from '../features/device/deviceSlice';
+// import { useNavigate } from 'react-router-dom'
 
 export default function RegisterDevice() {
     const [deviceData, setDeviceData] = useState({
         category: 'sensor',
-        name: '',
-        type: '',
-        location:'',
-        ipAddress:'',
-        port:''
+        name: 'Sensor 1',
+        type: 'Light',
+        location: '1',
+        ipAddress: '192.168.1.1',
+        port: '3001',
+        url: ''
     })
-    const {category, name, type, location, ipAddress, port} = deviceData
+    const {category, name, type, location, ipAddress, port, url} = deviceData
     
     const handleDeviceData = (event) => {
         setDeviceData((prevState)=>({
@@ -29,21 +33,50 @@ export default function RegisterDevice() {
         }))
     };
 
-    const register = (event)=>{
-        event.preventDefault()
+    const dispatch = useDispatch()
+    // const navigate = useNavigate()
 
+    const handleClick = (event)=>{
+        // event.preventDefault()
+        var data = {}
         if(category=='sensor'){
             if(!(name&&type&&location&&ipAddress&&port)){
                 toast.error('Please fill all required feilds!')
+            }   
+            else{
+                data = {
+                    name,
+                    type,
+                    location,
+                    ipAddress,
+                    port
+                }
             }
-            const sensorData = {
-                name,
-                type,
-                location,
-                ipAddress,
-                port
+            
+        }
+        if(category=='camera'){
+            if(!(name&&location&&url&&port)){
+                toast.error('Please fill all required feilds!')
+            }   
+            else{
+                data = {
+                    name,
+                    location,
+                    url,
+                    port
+                }
             }
         }
+        dispatch(register(data))
+                .unwrap()
+                .then((device) => {
+                // NOTE: by unwrapping the AsyncThunkAction we can navigate the device after
+                // getting a good response from our API or catch the AsyncThunkAction
+                // rejection to show an error message
+                toast.success(`Registered new device - ${device.name}`)
+                // navigate('/')
+                })
+                .catch(toast.error)
     }
 
 
@@ -136,20 +169,53 @@ export default function RegisterDevice() {
 
     const cameraReg = (
         <Box sx={{p:2}}>
-        <Grid container spacing={2}>
+        <Grid container spacing={4}>
         <Grid item xs={6}>
-            <FormControl sx={{ width: 1 }}>
-            <InputLabel id="demo-simple-select-helper-label">Group</InputLabel>
+            <TextField
+            required
+            name="name"
+            label="Name"
+            value={name}
+            sx={{width: 1}}
+            onChange={handleDeviceData}
+            />
+        </Grid>
+        <Grid item xs={6}>
+            <FormControl required sx={{ width: 1 }}>
+            <InputLabel id="location">Location</InputLabel>
             <Select
-                // value={group}
-                label="Group"
-                // onChange={handleGroupChange}
+                value={location}
+                label="Location"
+                name="location"
+                onChange={handleDeviceData}
             >
                 <MenuItem value={1}>1</MenuItem>
                 <MenuItem value={2}>2</MenuItem>
                 <MenuItem value={3}>3</MenuItem>
             </Select>
             </FormControl>
+        </Grid>
+        <Grid item xs={6}>
+            <TextField
+            required
+            id="url"
+            name="url"
+            label="URL"
+            value={url}
+            sx={{width: 1}}
+            onChange={handleDeviceData}
+            />
+        </Grid>
+        <Grid item xs={6}>
+            <TextField
+            required
+            id="port"
+            name="port"
+            label="Port"
+            value={port}
+            sx={{width: 1}}
+            onChange={handleDeviceData}
+            />
         </Grid>
         </Grid>
     </Box>)
@@ -159,7 +225,7 @@ export default function RegisterDevice() {
             <Button 
             variant='outlined' 
             size='large'
-            onClick={register} 
+            onClick={handleClick} 
             >
             Register
             </Button>

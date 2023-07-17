@@ -2,7 +2,6 @@
   "name": "lab-app",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:8000",
   "dependencies": {
     "@canvasjs/charts": "^3.7.11",
     "@canvasjs/react-charts": "^1.0.0",
