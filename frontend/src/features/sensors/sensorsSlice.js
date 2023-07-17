@@ -14,7 +14,7 @@ const initialState = [
     {id: '9', group: '3', online: true, hidden: false},
 ]
 export const sensorsSlice = createSlice({
-    name: 'Sensors',
+    name: 'sensors',
     initialState,
     reducers: {
         setVisibility: (state, action) =>{

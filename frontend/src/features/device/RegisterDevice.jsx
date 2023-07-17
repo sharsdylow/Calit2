@@ -11,7 +11,7 @@ import TextField from '@mui/material/TextField';
 import FormHelperText from '@mui/material/FormHelperText';
 import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch, useSelector } from 'react-redux'
-import { register } from '../features/device/deviceSlice';
+import { register } from './deviceSlice';
 // import { useNavigate } from 'react-router-dom'
 
 export default function RegisterDevice() {
@@ -41,7 +41,7 @@ export default function RegisterDevice() {
         var data = {}
         if(category=='sensor'){
             if(!(name&&type&&location&&ipAddress&&port)){
-                toast.error('Please fill all required feilds!')
+                toast.error('Please fill all required fields!')
             }   
             else{
                 data = {
@@ -56,7 +56,7 @@ export default function RegisterDevice() {
         }
         if(category=='camera'){
             if(!(name&&location&&url&&port)){
-                toast.error('Please fill all required feilds!')
+                toast.error('Please fill all required fields!')
             }   
             else{
                 data = {

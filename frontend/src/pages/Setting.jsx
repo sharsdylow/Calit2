@@ -1,5 +1,5 @@
 import React from 'react'
-import RegisterDevice from '../components/RegisterDevice'
+import RegisterDevice from '../features/device/RegisterDevice'
 
 export default function Setting() {
   return (
