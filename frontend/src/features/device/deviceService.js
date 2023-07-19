@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_URL = ''
+const API_URL = 'http://128.195.151.182:9002/api/devices/register'
 
 // Register user
 const register = async (deviceData) => {

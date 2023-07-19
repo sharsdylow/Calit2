@@ -69,11 +69,11 @@ export default function RegisterDevice() {
         }
         dispatch(register(data))
                 .unwrap()
-                .then((device) => {
+                .then(() => {
                 // NOTE: by unwrapping the AsyncThunkAction we can navigate the device after
                 // getting a good response from our API or catch the AsyncThunkAction
                 // rejection to show an error message
-                toast.success(`Registered new device - ${device.name}`)
+                toast.success(`Registered new device - ${data.name}`)
                 // navigate('/')
                 })
                 .catch(toast.error)
