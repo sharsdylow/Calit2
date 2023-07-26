@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -9,22 +10,20 @@ import Box from '@mui/material/Box'
 import Grid from '@mui/system/Unstable_Grid';
 import TextField from '@mui/material/TextField';
 import FormHelperText from '@mui/material/FormHelperText';
-import 'react-toastify/dist/ReactToastify.css';
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { register } from './deviceSlice';
 // import { useNavigate } from 'react-router-dom'
 
 export default function RegisterDevice() {
     const [deviceData, setDeviceData] = useState({
-        category: 'sensor',
-        name: 'Sensor 1',
-        type: 'Light',
+        category: 'camera',
+        name: 'Camera 1',
+        type: '',
         location: '1',
-        ipAddress: '192.168.1.1',
-        port: '3001',
-        url: ''
+        ip_address: 'rtsp://admin:Calit2@128.195.151.231:554/h264Preview_01_main',
+        port: '6789',
     })
-    const {category, name, type, location, ipAddress, port, url} = deviceData
+    const {category, name, type, location, ip_address: ipAddress, port} = deviceData
     
     const handleDeviceData = (event) => {
         setDeviceData((prevState)=>({
@@ -38,42 +37,23 @@ export default function RegisterDevice() {
 
     const handleClick = (event)=>{
         // event.preventDefault()
-        var data = {}
         if(category=='sensor'){
             if(!(name&&type&&location&&ipAddress&&port)){
                 toast.error('Please fill all required fields!')
-            }   
-            else{
-                data = {
-                    name,
-                    type,
-                    location,
-                    ipAddress,
-                    port
-                }
-            }
-            
+            }          
         }
         if(category=='camera'){
-            if(!(name&&location&&url&&port)){
+            if(!(name&&location&&ipAddress&&port)){
                 toast.error('Please fill all required fields!')
             }   
-            else{
-                data = {
-                    name,
-                    location,
-                    url,
-                    port
-                }
-            }
         }
-        dispatch(register(data))
+        dispatch(register(deviceData))
                 .unwrap()
                 .then(() => {
                 // NOTE: by unwrapping the AsyncThunkAction we can navigate the device after
                 // getting a good response from our API or catch the AsyncThunkAction
                 // rejection to show an error message
-                toast.success(`Registered new device - ${data.name}`)
+                toast.success(`Registered new device - ${deviceData.name}`)
                 // navigate('/')
                 })
                 .catch(toast.error)
@@ -198,10 +178,9 @@ export default function RegisterDevice() {
         <Grid item xs={6}>
             <TextField
             required
-            id="url"
-            name="url"
+            name="ipAddress"
             label="URL"
-            value={url}
+            value={ipAddress}
             sx={{width: 1}}
             onChange={handleDeviceData}
             />

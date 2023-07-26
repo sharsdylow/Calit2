@@ -28,7 +28,7 @@ export const deviceSlice = createSlice({
             state.isLoading = true
           })
           .addCase(register.fulfilled, (state, action) => {
-            state.user = action.payload
+            state.device = action.payload
             state.isLoading = false
           })
           .addCase(register.rejected, (state) => {
