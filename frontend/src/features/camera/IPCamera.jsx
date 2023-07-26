@@ -1,33 +1,37 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { fetchStream } from './camerasSlice';
-import JSMpeg from "@cycjimmy/jsmpeg-player";
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchCameras, fetchStream } from './camerasSlice';
+import JsmpegPlayer from '../../components/JsmpegPlayer';
+import { toast } from 'react-toastify';
+import '../../App.css'
 
 const ffmpegIP = "localhost";
 
 export default function IPCamera() {
-  const cameras = useSelector(state => state.cameras)
+  const {cameras} = useSelector(state => state.cameras)
   const dispatch = useDispatch()
 
   React.useEffect(() => {
+    dispatch(fetchCameras()).unwrap().catch(toast.error)
     dispatch(fetchStream())
-    cameras.forEach(camera => {
-      var videoUrl = `ws://${ffmpegIP}:${camera.port}/`;
-      var wrapper = "#"+camera.name
-      var player = new JSMpeg.VideoElement(wrapper, videoUrl, {
+  }, [dispatch]);
+
+  console.log(cameras)
+
+  const videoOptions = {
         autoplay: true,
-      });
-      // console.log(player.player.video.decodedTime);
-      // setTimeout(function () {console.log(player.player.video.decodedTime)}, 5000)
-    })
-  });
+      }
 
   const cameraList = cameras.map(camera => {
     return (
-      <div>
+      <div key={camera.device_id}>
       <h3>{camera.name}</h3>
-      <div id={camera.name} style={{ height: "360px", width: "480px" }}></div>
+      <JsmpegPlayer wrapperClassName="video-wrapper"
+          videoUrl={`ws://${ffmpegIP}:${camera.port}/`}
+          options={videoOptions}
+          overlayOptions={{}}
+          // onRef={ref => jsmpegPlayer = ref} 
+      />
       </div>
     )
   })
