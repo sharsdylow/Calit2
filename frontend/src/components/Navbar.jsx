@@ -11,7 +11,7 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 
-const pages = {'/sensor':'Sensor','/camera': 'IP Camera','/setting':'Settings',};
+const pages = {'/dashboard':'Dashboard','/sensor':'Sensor','/camera': 'IP Camera','/setting':'Settings',};
 
 function Navbar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
