@@ -28,7 +28,7 @@ export default function SensorsGroup() {
         <Box sx={{flexGrow: 1}}>
             <Grid container spacing={2}>
                 <Grid item xs={10}>
-                    <RealtimeSensorChart group={groupID} />
+                    <RealtimeSensorChart location={groupID} />
                 </Grid>
                 <Grid item xs={2}>
                     <SensorSwitch group={groupID} />

@@ -1,17 +1,25 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import Chart from 'chart.js/auto';
 import {Line} from 'react-chartjs-2';
 import 'chartjs-adapter-luxon';
 import StreamingPlugin from 'chartjs-plugin-streaming';
-import { useSelector } from 'react-redux'
+import { fetchSensors } from './sensorsSlice'
+import { useSelector, useDispatch } from 'react-redux'
+import { toast } from 'react-toastify';
 
 Chart.register(StreamingPlugin);
 
-const RealtimeSensorChart = ({group: location}) => {
+const RealtimeSensorChart = ({location}) => {
   const {sensors} = useSelector(state => state.sensors)
+
+  const dispatch = useDispatch()
+  useEffect(()=>{
+    dispatch(fetchSensors()).unwrap().catch(toast.error)
+  }, [dispatch])
+
   const borderColors = ['rgb(255, 99, 132)', 'rgb(54, 162, 235)', 'rgb(60, 179, 113)']
   const sensors_group = sensors.filter((sensor) => sensor.location===location)
-  console.log(sensors)
+  // console.log(location)
   const dataSets = sensors_group.map((sensor,index) =>{
     return {
       label: sensor.name,
@@ -42,7 +50,7 @@ const RealtimeSensorChart = ({group: location}) => {
                   // var data = getLatestData(dataset.lable);
                   // TODO query latest data and get the array of {x: timestamp, y: value} objects from backend
                   sensors_group.forEach(sensor=>{
-                    if(dataset.lable==sensor.name){
+                    if(dataset.label===sensor.name){
                       dataset.hidden = sensor.hidden
                     }
                   })
