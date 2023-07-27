@@ -1,7 +1,5 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import deviceService from './deviceService';
-// Get device from localstorage
-const device = JSON.parse(localStorage.getItem('device'))
 
 export const register = createAsyncThunk(
     'device/register',
@@ -14,8 +12,30 @@ export const register = createAsyncThunk(
     }
   )
 
+export const fetchAll = createAsyncThunk(
+    'device/fetchAll',
+    async (_, thunkAPI) => {
+        try{
+            return await deviceService.fetchAll()
+        }catch (error) {
+            return thunkAPI.rejectWithValue(error)
+        }
+    }
+  )
+
+export const deleteDevice = createAsyncThunk(
+    'device/delete',
+    async (device_id, thunkAPI) => {
+        try{
+            return await deviceService.deleteDevice(device_id)
+        }catch (error) {
+            return thunkAPI.rejectWithValue(error)
+        }
+    }
+  )
+
 const initialState = {
-    device: device ? device : null,
+    devices: [],
     isLoading: false,
   }
 
@@ -25,15 +45,22 @@ export const deviceSlice = createSlice({
     extraReducers:(builder)=>{
         builder
         .addCase(register.pending, (state) => {
-            state.isLoading = true
-          })
-          .addCase(register.fulfilled, (state, action) => {
-            state.device = action.payload
-            state.isLoading = false
-          })
-          .addCase(register.rejected, (state) => {
-            state.isLoading = false
-          })
+          state.isLoading = true
+        })
+        .addCase(register.fulfilled, (state, action) => {
+          state.devices.push = action.payload
+          state.isLoading = false
+        })
+        .addCase(register.rejected, (state) => {
+          state.isLoading = false
+        })
+        .addCase(fetchAll.fulfilled, (state, action)=>{
+          state.devices = action.payload
+          state.isLoading = false
+        })
+        .addCase(deleteDevice.fulfilled, (state) => {
+          state.isLoading = false
+        })
     }
 })
 
