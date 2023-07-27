@@ -7,11 +7,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setVisibility } from '../../features/sensors/sensorsSlice';
 
 
-export default function SensorSwitch({group}) {
+export default function SensorSwitch({location}) {
   const {sensors} = useSelector(state => state.sensors)
   const dispatch = useDispatch()
   const switches = sensors.map(sensor =>{
-    if (sensor.location==group){
+    if (sensor.location==location){
       return <FormControlLabel control={<Switch defaultChecked onChange={() => dispatch(setVisibility(sensor.device_id))}/>} label={sensor.name} />
     }
   })

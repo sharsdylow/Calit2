@@ -3,23 +3,34 @@ import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import RealtimeSensorChart from "../features/sensors/RealtimeSensorChart"
 import SensorSwitch from "../features/sensors/SensorSwitch"
-import IPCamera from "../features/camera/IPCamera";
+import CameraItem from '../features/camera/CameraItem'
+import { useSelector } from 'react-redux'
 
 export default function DashBoardItem({location}) {
-  console.log(location)
-  return (
-    <div>
-        <h3>{location}</h3>
-        <Box sx={{flexGrow: 1}}>
-            <Grid container spacing={2}>
-                <Grid item xs={10}>
-                    <RealtimeSensorChart location={location} />
+//   console.log(location)
+    const {cameras} = useSelector(state => state.cameras)
+    // console.log(cameras)
+    const camera_group = cameras.filter(camera => camera.location === location)
+    // console.log(camera_group)
+
+    const cameraList = camera_group.map(camera => {
+        return <CameraItem camera={camera} />
+    })
+
+    return (
+        <div>
+            <h3>{location}</h3>
+            <Box sx={{flexGrow: 1}}>
+                <Grid container spacing={2}>
+                    <Grid item xs={6}>
+                        <RealtimeSensorChart location={location} />
+                        <SensorSwitch location={location} />
+                    </Grid>
+                    <Grid item xs={6}>
+                        {cameraList}
+                    </Grid>
                 </Grid>
-                <Grid item xs={2}>
-                    <SensorSwitch group={location} />
-                </Grid>
-            </Grid>
-        </Box>
-      </div>
-  )
+            </Box>
+        </div>
+    )
 }
