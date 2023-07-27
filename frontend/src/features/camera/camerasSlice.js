@@ -14,7 +14,7 @@ export const fetchCameras = createAsyncThunk(
                 field_name: 'category',
                 field_value: 'camera'
             }
-            return await deviceService.fetch(filter)
+            return await deviceService.fetchByFilter(filter)
         }catch (error) {
             return thunkAPI.rejectWithValue(error)
         }

@@ -1,11 +1,8 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchCameras, fetchStream } from './camerasSlice';
-import JsmpegPlayer from '../../components/JsmpegPlayer';
 import { toast } from 'react-toastify';
-import '../../App.css'
-
-const ffmpegIP = "localhost";
+import CameraItem from './CameraItem';
 
 export default function IPCamera() {
   const {cameras} = useSelector(state => state.cameras)
@@ -18,21 +15,9 @@ export default function IPCamera() {
 
   console.log(cameras)
 
-  const videoOptions = {
-        autoplay: true,
-      }
-
   const cameraList = cameras.map(camera => {
     return (
-      <div key={camera.device_id}>
-      <h3>{camera.name}</h3>
-      <JsmpegPlayer wrapperClassName="video-wrapper"
-          videoUrl={`ws://${ffmpegIP}:${camera.port}/`}
-          options={videoOptions}
-          overlayOptions={{}}
-          // onRef={ref => jsmpegPlayer = ref} 
-      />
-      </div>
+      <CameraItem camera={camera} key={camera.device_id}></CameraItem>
     )
   })
   
