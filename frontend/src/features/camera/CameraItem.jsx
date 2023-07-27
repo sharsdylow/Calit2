@@ -6,6 +6,7 @@ const ffmpegIP = "localhost";
 const videoOptions = {
     autoplay: true,
   }
+  
 export default function CameraItem({camera}) {
   return (
     <div key={camera.device_id}>
