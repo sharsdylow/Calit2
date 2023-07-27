@@ -10,9 +10,11 @@ export default function IPCamera() {
 
   React.useEffect(() => {
     dispatch(fetchCameras()).unwrap().catch(toast.error)
-    dispatch(fetchStream())
   }, [dispatch]);
 
+  cameras.forEach(camera => {
+    dispatch(fetchStream(camera)).unwrap().catch(toast.error)
+  })
   // console.log(cameras)
 
   const cameraList = cameras.map(camera => {

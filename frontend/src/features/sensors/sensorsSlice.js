@@ -2,7 +2,6 @@
 //get initial state from backend
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'
 import deviceService from '../device/deviceService'
-import axios from 'axios'
 
 const initialState = {
     sensors: []
@@ -16,7 +15,7 @@ export const fetchSensors = createAsyncThunk(
                 field_name: 'category',
                 field_value: 'sensor'
             }
-            return await deviceService.fetch(filter)
+            return await deviceService.fetchByFilter(filter)
         }catch (error) {
             return thunkAPI.rejectWithValue(error)
         }

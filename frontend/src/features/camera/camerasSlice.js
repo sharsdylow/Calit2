@@ -1,6 +1,6 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'
 import deviceService from '../device/deviceService'
-import axios from 'axios'
+import cameraService from './cameraService'
 
 const initialState = {
     cameras: []
@@ -21,32 +21,29 @@ export const fetchCameras = createAsyncThunk(
     }
 )
 
+export const fetchStream = createAsyncThunk(
+    'cameras/fetchStream',
+    async (camera, thunkAPI) => {
+        try{
+            return await cameraService.startStream(camera)
+        }catch (error) {
+            return thunkAPI.rejectWithValue(error)
+        }
+    }
+)
+
 export const camerasSlice = createSlice({
     name: 'cameras',
     initialState,
-    reducers: {
-        fetchStream: (state) => {
-            state.cameras.forEach(async(camera)=>{
-                try{
-                    const res = await axios.get('http://localhost:8000/start-stream', {
-                        params: {url: camera.ip_address, port: camera.port, key: camera.name}
-                    });
-                    console.log(res.data.message);
-                }catch(error){
-                    console.error('Error fetching camara stream:', error)
-                }
-            })
-          }
-    },
+    reducers: {},
     extraReducers: (builder) => {
         builder
             .addCase(fetchCameras.fulfilled, (state, action) =>{
                 state.cameras = action.payload
                 // console.log(state.cameras)
             })
+            
     }
 })
-
-export const {fetchStream} = camerasSlice.actions
 
 export default camerasSlice.reducer
