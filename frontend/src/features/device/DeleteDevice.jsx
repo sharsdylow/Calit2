@@ -10,13 +10,13 @@ import Box from '@mui/material/Box'
 import Grid from '@mui/system/Unstable_Grid';
 
 import { useDispatch, useSelector } from 'react-redux'
-import { register, deleteDevice, fetchAll } from './deviceSlice';
+import { deleteDevice, fetchAll } from './deviceSlice';
 // import { useNavigate } from 'react-router-dom'
 
 export default function DeleteDevice() {
     const [deviceData, setDeviceData] = useState({
-        name: 'Sensor 1',
-        location: '1',
+        name: '',
+        location: '',
     })
     const {name, location} = deviceData
     const {devices} = useSelector((state => state.device))
@@ -66,7 +66,7 @@ export default function DeleteDevice() {
         locations.add(device.location)
     })
     const locationsMenu = Array.from(locations).map(location => {
-        return <MenuItem value={location}>{location}</MenuItem>
+        return <MenuItem value={location} key={location}>{location}</MenuItem>
     })
 
     const names = new Set()
@@ -76,7 +76,7 @@ export default function DeleteDevice() {
         }
     })
     const namesMenu = Array.from(names).map(name => {
-        return <MenuItem value={name}>{name}</MenuItem>
+        return <MenuItem value={name} key={name}>{name}</MenuItem>
     })
 
     const deviceDel = (
