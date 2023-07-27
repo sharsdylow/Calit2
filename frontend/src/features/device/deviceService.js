@@ -6,7 +6,7 @@ const DEL_URL = 'http://128.195.151.182:9002/api/devices/delete'
 
 // Register user
 const register = async (deviceData) => {
-  console.log(deviceData)
+  // console.log(deviceData)
   const response = await axios.post(REG_URL, deviceData)
   return response.data
 }

@@ -13,7 +13,7 @@ export default function IPCamera() {
     dispatch(fetchStream())
   }, [dispatch]);
 
-  console.log(cameras)
+  // console.log(cameras)
 
   const cameraList = cameras.map(camera => {
     return (

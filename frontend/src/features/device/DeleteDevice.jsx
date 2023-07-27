@@ -19,21 +19,21 @@ export default function DeleteDevice() {
         location: '',
     })
     const {name, location} = deviceData
-    const {devices} = useSelector((state => state.device))
     
+    const {devices} = useSelector((state => state.device))
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(fetchAll()).unwrap().catch(toast.error)
+    }, [dispatch])
+
+    // console.log(devices)
+
     const handleDeviceData = (event) => {
         setDeviceData((prevState)=>({
             ...prevState,
             [event.target.name]: event.target.value,
         }))
     };
-
-    const dispatch = useDispatch()
-    useEffect(() => {
-        dispatch(fetchAll()).unwrap().catch(toast.error)
-    }, [dispatch])
-
-    console.log(devices)
 
     const handleClick = (event)=>{
         // event.preventDefault()
@@ -75,6 +75,7 @@ export default function DeleteDevice() {
             names.add(device.name)
         }
     })
+    console.log(names)
     const namesMenu = Array.from(names).map(name => {
         return <MenuItem value={name} key={name}>{name}</MenuItem>
     })
