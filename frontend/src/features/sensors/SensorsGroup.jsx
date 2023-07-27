@@ -1,16 +1,24 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import RealtimeSensorChart from './RealtimeSensorChart'
 import SensorSwitch from './SensorSwitch'
+import { fetchSensors } from './sensorsSlice'
+import { toast } from 'react-toastify';
 
 export default function SensorsGroup() {
-  const sensors = useSelector(state => state.sensors)
-  // console.log(sensors)
+  const {sensors} = useSelector(state => state.sensors)
+
+  const dispatch = useDispatch()
+  useEffect(()=>{
+    dispatch(fetchSensors()).unwrap().catch(toast.error)
+  }, [dispatch])
+
+  console.log(sensors)
   const groupList = Object.values(
     sensors.reduce((acc, sensor)=>{
-        const groupID = sensor.group
+        const groupID = sensor.location
         if (!acc[groupID]){
             acc[groupID] = (
             <div>

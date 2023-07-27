@@ -8,11 +8,11 @@ import { setVisibility } from '../../features/sensors/sensorsSlice';
 
 
 export default function SensorSwitch({group}) {
-  const sensors = useSelector(state => state.sensors)
+  const {sensors} = useSelector(state => state.sensors)
   const dispatch = useDispatch()
   const switches = sensors.map(sensor =>{
-    if (sensor.group==group){
-      return <FormControlLabel control={<Switch defaultChecked onChange={() => dispatch(setVisibility(sensor.id))}/>} label={sensor.id} />
+    if (sensor.location==group){
+      return <FormControlLabel control={<Switch defaultChecked onChange={() => dispatch(setVisibility(sensor.device_id))}/>} label={sensor.name} />
     }
   })
   return (

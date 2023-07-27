@@ -7,14 +7,14 @@ import { useSelector } from 'react-redux'
 
 Chart.register(StreamingPlugin);
 
-const RealtimeSensorChart = ({group}) => {
-  const sensorsAll = useSelector(state => state.sensors)
+const RealtimeSensorChart = ({group: location}) => {
+  const {sensors} = useSelector(state => state.sensors)
   const borderColors = ['rgb(255, 99, 132)', 'rgb(54, 162, 235)', 'rgb(60, 179, 113)']
-  const sensors = sensorsAll.filter((sensor) => sensor.group===group)
-
-  const dataSets = sensors.map((sensor,index) =>{
+  const sensors_group = sensors.filter((sensor) => sensor.location===location)
+  console.log(sensors)
+  const dataSets = sensors_group.map((sensor,index) =>{
     return {
-      label: sensor.id,
+      label: sensor.name,
       backgroundColor: borderColors.at(index),
       borderColor: borderColors.at(index),
       fill: false,
@@ -41,8 +41,8 @@ const RealtimeSensorChart = ({group}) => {
                 chart.data.datasets.forEach((dataset) => {
                   // var data = getLatestData(dataset.lable);
                   // TODO query latest data and get the array of {x: timestamp, y: value} objects from backend
-                  sensors.forEach(sensor=>{
-                    if(dataset.id==sensor.id){
+                  sensors_group.forEach(sensor=>{
+                    if(dataset.lable==sensor.name){
                       dataset.hidden = sensor.hidden
                     }
                   })

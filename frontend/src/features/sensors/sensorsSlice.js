@@ -1,29 +1,44 @@
 //a sensor has groupID, name, status, show
 //get initial state from backend
-import {createSlice} from '@reduxjs/toolkit'
+import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'
+import deviceService from '../device/deviceService'
+import axios from 'axios'
 
-const initialState = [
-    {id: '1', group: '1', online: true, hidden: false},
-    {id: '2', group: '2', online: true, hidden: false},
-    {id: '3', group: '3', online: true, hidden: false},
-    {id: '4', group: '1', online: true, hidden: false},
-    {id: '5', group: '2', online: true, hidden: false},
-    {id: '6', group: '3', online: true, hidden: false},
-    {id: '7', group: '1', online: true, hidden: false},
-    {id: '8', group: '2', online: true, hidden: false},
-    {id: '9', group: '3', online: true, hidden: false},
-]
+const initialState = {
+    sensors: []
+}
+
+export const fetchSensors = createAsyncThunk(
+    'sensors/fetchSensors',
+    async (_, thunkAPI) => {
+        try{
+            const filter = {
+                field_name: 'category',
+                field_value: 'sensor'
+            }
+            return await deviceService.fetch(filter)
+        }catch (error) {
+            return thunkAPI.rejectWithValue(error)
+        }
+    }
+)
 export const sensorsSlice = createSlice({
     name: 'sensors',
     initialState,
     reducers: {
         setVisibility: (state, action) =>{
-            state.forEach(sensor => {
-                if(sensor.id==action.payload){
+            state.sensors.forEach(sensor => {
+                if(sensor.device_id==action.payload){
                     sensor.hidden=!sensor.hidden
                 }
             })
         }
+    },
+    extraReducers: (builder) => {
+        builder.addCase(fetchSensors.fulfilled, (state, action) =>{
+            state.sensors = action.payload
+            // console.log(state)
+        })
     }
 })
 

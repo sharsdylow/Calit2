@@ -16,14 +16,14 @@ import { register } from './deviceSlice';
 
 export default function RegisterDevice() {
     const [deviceData, setDeviceData] = useState({
-        category: 'camera',
-        name: 'Camera 1',
+        category: 'sensor',
+        name: 'Sensor',
         type: '',
         location: '1',
-        ip_address: 'rtsp://admin:Calit2@128.195.151.231:554/h264Preview_01_main',
-        port: '6789',
+        ip_address: '',
+        port: '',
     })
-    const {category, name, type, location, ip_address: ipAddress, port} = deviceData
+    const {category, name, type, location, ip_address, port} = deviceData
     
     const handleDeviceData = (event) => {
         setDeviceData((prevState)=>({
@@ -38,12 +38,12 @@ export default function RegisterDevice() {
     const handleClick = (event)=>{
         // event.preventDefault()
         if(category=='sensor'){
-            if(!(name&&type&&location&&ipAddress&&port)){
+            if(!(name&&type&&location&&ip_address&&port)){
                 toast.error('Please fill all required fields!')
             }          
         }
         if(category=='camera'){
-            if(!(name&&location&&ipAddress&&port)){
+            if(!(name&&location&&ip_address&&port)){
                 toast.error('Please fill all required fields!')
             }   
         }
@@ -125,10 +125,10 @@ export default function RegisterDevice() {
         <Grid item xs={6}>
             <TextField
             required
-            id="ipAddress"
-            name="ipAddress"
+            id="ip_address"
+            name="ip_address"
             label="IP Address"
-            value={ipAddress}
+            value={ip_address}
             sx={{width: 1}}
             onChange={handleDeviceData}
             />
@@ -178,9 +178,9 @@ export default function RegisterDevice() {
         <Grid item xs={6}>
             <TextField
             required
-            name="ipAddress"
+            name="ip_address"
             label="URL"
-            value={ipAddress}
+            value={ip_address}
             sx={{width: 1}}
             onChange={handleDeviceData}
             />
