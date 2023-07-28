@@ -1,14 +1,15 @@
 import React, {useEffect} from 'react'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchAll } from '../features/device/deviceSlice';
 import { fetchCameras, fetchStream } from '../features/camera/camerasSlice';
-import DashBoardItem from '../components/DashBoardItem';
+import VerticalTabs from '../components/VerticalTabs';
 
 export default function Dashboard() {
-  const {devices} = useSelector(state => state.device)
-  const {cameras} = useSelector(state => state.cameras)
+  const {devices} = useSelector((state) => state.device)
+  const {cameras} = useSelector((state) => state.cameras)
 
   const dispatch = useDispatch()
   useEffect(() => {
@@ -25,12 +26,8 @@ export default function Dashboard() {
   devices.forEach(device => {
       locations.add(device.location)
   })
-
-  // console.log(locations)
-  const dashBoardList = Array.from(locations).map(location => {
-    return <DashBoardItem location={location} key={location}/>
-  })
+  
   return (
-    <div>{dashBoardList}</div>
+    <VerticalTabs locations={Array.from(locations)} />
   )
 }
