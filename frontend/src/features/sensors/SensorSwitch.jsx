@@ -12,7 +12,7 @@ export default function SensorSwitch({location}) {
   const dispatch = useDispatch()
   const switches = sensors.map(sensor =>{
     if (sensor.location==location){
-      return <FormControlLabel control={<Switch defaultChecked onChange={() => dispatch(setVisibility(sensor.device_id))}/>} label={sensor.name} />
+      return <FormControlLabel key={sensor.device_id}control={<Switch defaultChecked onChange={() => dispatch(setVisibility(sensor.device_id))}/>} label={sensor.name} />
     }
   })
   return (

@@ -14,7 +14,7 @@ export default function DashBoardItem({location}) {
     // console.log(camera_group)
 
     const cameraList = camera_group.map(camera => {
-        return <CameraItem camera={camera} />
+        return <CameraItem key={camera.device_id} camera={camera} />
     })
 
     return (
@@ -22,14 +22,14 @@ export default function DashBoardItem({location}) {
             <h3>{location}</h3>
             <Box sx={{flexGrow: 1}}>
                 <Grid container spacing={2}>
-                    <Grid item xs={6}>
+                    <Grid item xs={10}>
                         <RealtimeSensorChart location={location} />
+                    </Grid>
+                    <Grid item xs={2}>
                         <SensorSwitch location={location} />
                     </Grid>
-                    <Grid item xs={6}>
-                        {cameraList}
-                    </Grid>
                 </Grid>
+                {cameraList}
             </Box>
         </div>
     )

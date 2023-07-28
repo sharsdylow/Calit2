@@ -15,11 +15,12 @@ export default function Camera() {
   cameras.forEach(camera => {
     dispatch(fetchStream(camera)).unwrap().catch(toast.error)
   })
-  // console.log(cameras)
+  
+  console.log(cameras)
 
   const cameraList = cameras.map(camera => {
     return (
-      <CameraItem camera={camera} key={camera.device_id}></CameraItem>
+      <CameraItem camera={camera} key={camera.device_id} />
     )
   })
   

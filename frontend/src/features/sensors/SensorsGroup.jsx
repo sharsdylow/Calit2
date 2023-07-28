@@ -23,7 +23,7 @@ export default function SensorsGroup() {
 
   const groupList = Array.from(groups).map(groupID => {
     return (
-      <div>
+      <div key={groupID}>
         <h3>Group {groupID}</h3>
         <Box sx={{flexGrow: 1}}>
             <Grid container spacing={2}>
